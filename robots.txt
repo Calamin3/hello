@@ -1,0 +1,1 @@
+Sitemap: https://calamin3.github.io/hello/sitemap.xml
