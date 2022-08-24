@@ -4,12 +4,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>MRT OD Matrix in Singapore | Thomas’s Data Science Journey</title>
+<title>Analysis on MRT/LRT dataset in Singapore | Thomas’s Data Science Journey</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="MRT OD Matrix in Singapore" />
+<meta property="og:title" content="Analysis on MRT/LRT dataset in Singapore" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Assignment on clustering based on OD matrix in context of Singapore’s Public Transportation System" />
-<meta property="og:description" content="Assignment on clustering based on OD matrix in context of Singapore’s Public Transportation System" />
+<meta name="description" content="Clustering analysis of MRT/LRT Network in Singapore" />
+<meta property="og:description" content="Clustering analysis of MRT/LRT Network in Singapore" />
 <link rel="canonical" href="https://calamin3.github.io/hello/sg/2022/08/21/ODMatrix.html" />
 <meta property="og:url" content="https://calamin3.github.io/hello/sg/2022/08/21/ODMatrix.html" />
 <meta property="og:site_name" content="Thomas’s Data Science Journey" />
@@ -18,9 +18,9 @@
 <meta property="article:published_time" content="2022-08-21T00:00:00-05:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://calamin3.github.io/hello/images/2022-08-21/tel2_sm-20-03-en-exp.png" />
-<meta property="twitter:title" content="MRT OD Matrix in Singapore" />
+<meta property="twitter:title" content="Analysis on MRT/LRT dataset in Singapore" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-08-21T00:00:00-05:00","datePublished":"2022-08-21T00:00:00-05:00","description":"Assignment on clustering based on OD matrix in context of Singapore’s Public Transportation System","headline":"MRT OD Matrix in Singapore","image":"https://calamin3.github.io/hello/images/2022-08-21/tel2_sm-20-03-en-exp.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://calamin3.github.io/hello/sg/2022/08/21/ODMatrix.html"},"url":"https://calamin3.github.io/hello/sg/2022/08/21/ODMatrix.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-08-21T00:00:00-05:00","datePublished":"2022-08-21T00:00:00-05:00","description":"Clustering analysis of MRT/LRT Network in Singapore","headline":"Analysis on MRT/LRT dataset in Singapore","image":"https://calamin3.github.io/hello/images/2022-08-21/tel2_sm-20-03-en-exp.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://calamin3.github.io/hello/sg/2022/08/21/ODMatrix.html"},"url":"https://calamin3.github.io/hello/sg/2022/08/21/ODMatrix.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/hello/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://calamin3.github.io/hello/feed.xml" title="Thomas's Data Science Journey" /><link rel="shortcut icon" type="image/x-icon" href="/hello/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -91,7 +91,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">MRT OD Matrix in Singapore</h1><p class="page-description">Assignment on clustering based on OD matrix in context of Singapore's Public Transportation System</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-08-21T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Analysis on MRT/LRT dataset in Singapore</h1><p class="page-description">Clustering analysis of MRT/LRT Network in Singapore</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-08-21T00:00:00-05:00" itemprop="datePublished">
         Aug 21, 2022
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -166,7 +166,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In Singapore, one of the main forms of public transportation is via MRT/LRT. One assignment that I have performed is to use the commuting data for MRT and employ appropriate cluster analysis methods to group these stations into homogeneous groups using the origin-destination data. We are interested to find out the weekday AM (7-9am) and PM peak (5-7pm) for the journey-to-work and journey-to-home trips, and for weekend interaction during noon times (11-1pm). While the assignment was performed in SAS JMP Pro, I have included the concepts and reworked it using Python and its packages.</p>
+<p>In Singapore, one of the main forms of public transportation is via MRT/LRT. Adapted from an assignment, one of the ways to analyse transport patterns is the use of appropriate cluster analysis methods to group these stations into homogeneous groups using origin-destination data. The origin and destination points can be captured through the use of an electronic wallet at the gantry points of the public MRT/LRT system. LTA publishes these data (more below on how to get the data) for the public and enterprises.</p>
+<p>We are interested to find out the weekday AM (7-9am) and PM peak (5-7pm) for the journey-to-work and journey-to-home trips, and for weekend interaction during noon times (11-1pm).</p>
 
 </div>
 </div>
@@ -198,7 +199,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Data can be found via the Land Transport Authority <a href="https://datamall.lta.gov.sg/content/datamall/en.html">Data Mall</a> via an API call. I have also included the codes for API call but the accountkey have to be requested.</p>
+<p>Data can be found via the Land Transport Authority <a href="https://datamall.lta.gov.sg/content/datamall/en.html">Data Mall</a> via an API call. I have also included the codes for API call but the accountkey have to be requested from LTA.</p>
 
 </div>
 </div>
